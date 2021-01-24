@@ -47,6 +47,7 @@ my $opt_downloadstripmerge = '';
 my $opt_unbound = '';
 my $opt_pfprep = '';
 my $opt_verbosity = 0;
+my $opt_blocksubdir = 0;
 
 my $bf;
 my $wf;
@@ -61,15 +62,16 @@ sub opt_show_help {
     print "    --{merge|M}     merge the downloaded and processed lists\n";
     print "    --{downloadstripmerge}	download, strip and merge hostsfiles\n";
     print "    --{unbound|U}   prepare unbound include file from mergefile\n";
-    print "    [planned: --{bind|B}   prepare BIND zone file]\n";
-    print "    -v              increase output verbosity\n";
-    print "    in conjunction with unbound option only:\n";
-    print "    -r=<IP>         the IP to redirect to (default 127.0.0.1, in conjunction with unbound option\n";
-    print "    -t=<dir>        target directory for copying the resulting unbound_include.txt into\n";
-    print "                     (usually /var/unbound)\n";
+#     print "    [planned: --{bind|B}   prepare BIND zone file]\n";
     print "    -d=<path>       set base path where to work (default: current working directory).\n";
     print "                    Recommended setting: /var/adkilla\n";
     print "    -c=<path>       config directory path, where the blacklist and whitelist files are (default: /usr/local/etc)\n";
+    print "    -v              increase output verbosity\n";
+    print "    The following options are meaningful only in conjunction with unbound option:\n";
+    print "    -s              if set, unbound also blocks subdomains of blacklisted domains\n";
+    print "    -r=<IP>         the IP to redirect to (default 127.0.0.1, in conjunction with unbound option\n";
+    print "    -t=<dir>        target directory for copying the resulting unbound_include.txt into\n";
+    print "                     (usually /var/unbound)\n";
     exit 0;
 }
 
@@ -95,6 +97,7 @@ GetOptions(
     "merge"		=> \$opt_merge,
     "downloadstripmerge"		=> \$opt_downloadstripmerge,
     "unbound"	=> \$opt_unbound,
+    "s+"		=> \$opt_blocksubdir,
     "v+"		=> \$opt_verbosity,
 ) || wrong_usage();
 wrong_usage() if @ARGV;
@@ -640,9 +643,12 @@ sub do_unbound
 	foreach (@hostlist) {
 		# do *not* use redirect, as it will block possibly legit subdomains, too.
 		# Or, use it if you want just this :)
-# 		$outtext .= "local-zone: \"$_\" redirect\n";
-# 		$outtext .= "local-data: \"$_ A $opt_redirectip\"\n";
-		$outtext .= "local-data: \"$_. IN A $opt_redirectip\"\n";
+		if ($opt_blocksubdir) {
+            $outtext .= "local-zone: \"$_\" redirect\n";
+            $outtext .= "local-data: \"$_ A $opt_redirectip\"\n";
+        } else {
+            $outtext .= "local-data: \"$_. IN A $opt_redirectip\"\n";
+        }
 	}
 	my $unboundfn = "$snapdir/$unboundfilename";
 	writeutffile( $unboundfn, \$outtext);
