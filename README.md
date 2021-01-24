@@ -3,7 +3,7 @@ Highly configurable adblocker, also useful against malware and phishing.<br>
 Blacklist and whitelist can be edited to choose lists to download and use as well as individual domain/hostnames.<br>
 Current configuration merges 55 well-selected ad, tracking, malware, phishing and telemetry site lists and one whitelist.
 Can read a multitude of adblocker list formats.<br>
-Over 1.6 million hosts/domains blocked as of January 2021, <i>with almost no false-positives!</i>
+Over 1.6 million hosts/domains blocked as of January 2021, <i>with almost no false-positives!</i><br>
 Can export into various configuration file formats: Unbound (working), BIND (planned), others (requests?).<br>
 
 Recommended usage: From crontab, about monthly update<br>
