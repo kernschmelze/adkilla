@@ -9,7 +9,7 @@ Can export into various configuration file formats: Unbound (working), BIND (pla
 Recommended usage: From crontab, about monthly update<br>
 Recommended parameters:<br>
 <br>
-<b>adkilla -v --downloadstripmerge --unbound -r=127.0.0.1 -d=/var/adkilla -t=/var/unbound/unbound_include.txt -c=/usr/local/etc</b><br>
+<b>adkilla -v --downloadstripmerge --unbound -r=127.0.0.1 -d=/var/adkilla -s -t=/var/unbound/unbound_include.txt -c=/usr/local/etc</b><br>
 <br>
 Parameter explanation:<br>
 <b>-v</b> : more verbose output<br>
@@ -18,6 +18,7 @@ Parameter explanation:<br>
 [the following options need only to be set if not using the default values shown below]<br>
 <b>-r=127.0.0.1</b> : set the IP to redirect to for blocked domains/hosts<br>
 <b>-d=/var/adkilla</b> : use this directory as storage for downloaded and processed files<br>
+<b>-s</b> : this option turns on blocking of subdomains of blacklisted domains<br>
 <b>-t=/var/unbound/unbound_include.txt</b> : target path/filename for the unbound include file<br>
 <b>-c=/usr/local/etc</b> : where the config files, i.e. black- and whitelists are.<br>
 <br>
