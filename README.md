@@ -28,6 +28,6 @@ Please read the config files for more usage instructions:<br>
 <b>adkilla_whitelist.conf</b> : whitelist file<br>
 <br>
 Do not forget to create the directories if they aren't there yet!<br>
-If you are not running as root, the working and target directories must be set so the user can read and write!<br>
+If you are not running the script as root, the working and target directories must be set so the user can read and write!<br>
 
 
