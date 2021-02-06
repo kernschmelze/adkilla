@@ -30,5 +30,48 @@ Please read the config files for more usage instructions:<br>
 <br>
 Do not forget to create the directories if they aren't there yet!<br>
 If you are not running the script as root, the working and target directories must be set so the user can read and write!<br>
+<br>
+<h3>How it works</h3><br>
+There are four passes:<br>
+<ul>
+<li>Download</li>
+<li>Strip</li>
+<li>Merge</li>
+<li>Generate DNS include file for Unbound (and maybe others, on request)</li>
+</ul><br>
+<h4>Download</h4><br>
+Every time this step is called, a subdirectory in the work directory is created, with the name "YYYY-MM-DD-HH:MM:SS".<br>
+Thus you can keep older downloaded versions for archive etc.<br>
+Space usage is low compared with modern storage sizes, about 100MB for all downloaded and resulting processed files. If you are concerned about space usage, install a packer or cleaner script.<br>
+The chronologically as alphabetically latest directory created automatically becomes the work subdirectory for the following steps, too.<br>
+The files are downloaded with their names consisting of their URL (with slashes and spaces replaced by an underscore), prefixed by "black" or "white", respective what kind the list is.<br>
+<br>
+<h4>Strip</h4><br>
+As the blocklist files are in numerous formats, some even tarpacked, they have to be preprocessed.<br>
+HTML, different ad blocker list formats, malformed list entries, other errors in lists and all this.<br>
+The strip pass removes (almost) all this garbage, leaving only the domain/host names that are of interest to us.<br>
+The result files have the same name as the originals, with added "\_stripped".<br>
+<br>
+<h4>Merge></h4><br>
+This pass merges the (in many cases redundant) information from the blocklists, so there are no double entries in the resulting final blocklist.<br>
+Depending on whether you want recursive subdomain blocking (-s option) or normal non-recursive blocking, the resulting file size and memory usage differ considerably.<br>
+As there is no need to store subdomains of already-blocked domains, the memory usage is considerably less when using the -s option.<br>
+Using the current blocklists (Jan 2021), peak memory usage is <400MB compared to <1.4GB when using normal, non-recursive blocking.<br>
+The result files from the merge pass are:<br>
+blackmergefile.txt and whitemergefile.txt: These files contain the merged black and whitelists, respective.<br>
+finalmergefile.txt: This file contains the final blacklist, consisting of the merged blacklist minus the merged whitelist.<br>
+<br>
+<h4>Generate DNS include file for Unbound (and maybe others, on request)</h4><br>
+The final mergefile only consists hosts/domain names and this needs to be blown up so Unbound can use it.<br>
+The way the resulting "unbound_include.txt" file gets blown up depends on your setting, default normal, or with -s option recursive, including subdomains.<br>
+This file then gets copied into /var/unbound, if you specified no other target.<br>
+<br>
+And now you can reload unbounds' configuration :)<br>
+
+
+
+
+
+
 
 
