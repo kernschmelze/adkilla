@@ -52,7 +52,7 @@ HTML, different ad blocker list formats, malformed list entries, other errors in
 The strip pass removes (almost) all this garbage, leaving only the domain/host names that are of interest to us.<br>
 The result files have the same name as the originals, with added "\_stripped".<br>
 <br>
-<h4>Merge></h4><br>
+<h4>Merge</h4><br>
 This pass merges the (in many cases redundant) information from the blocklists, so there are no double entries in the resulting final blocklist.<br>
 Depending on whether you want recursive subdomain blocking (-s option) or normal non-recursive blocking, the resulting file size and memory usage differ considerably.<br>
 As there is no need to store subdomains of already-blocked domains, the memory usage is considerably less when using the -s option.<br>
