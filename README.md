@@ -6,7 +6,7 @@ Highly configurable adblocker, also useful against malware and phishing.<br>
 <li>Current configuration merges 55 well-selected ad, tracking, malware, phishing and telemetry site lists and one whitelist.
 <li>Can read a multitude of adblocker list formats.
 <li>Over 1.6 million hosts/domains blocked as of January 2021, <i>with almost no false-positives!</i>
-<li>When using recursive (subdomain) blocking, the number of domains decreases to 600k, reducing memory usage too.
+<li>When using recursive (subdomain) blocking, the number of domains decreases to ~280k, massively reducing memory usage.
 <li>Can export into DNS server configuration file format: Unbound (implemented) BIND and others (on request).
 </ul>
 
