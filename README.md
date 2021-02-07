@@ -34,6 +34,7 @@ Please read the config files for more usage instructions:<br>
 <br>
 Do not forget to create the directories if they aren't there yet!<br>
 If you are not running the script as root, the working and target directories must be set so the user can read and write!<br>
+<b>Runtime dependencies:</b> Perl, wget<br>
 <br>
 <h3>How it works</h3><br>
 There are four passes:<br>
