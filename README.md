@@ -54,7 +54,7 @@ The files are downloaded with their names consisting of their URL (with slashes 
 As the blocklist files are in numerous formats, some even tarpacked, they have to be preprocessed.<br>
 HTML, different ad blocker list formats, malformed list entries, other errors in lists and all this.<br>
 The strip pass removes (almost) all this garbage, leaving only the domain/host names that are of interest to us.<br>
-The result files have the same name as the originals, with added "\_stripped".<br>
+The result files have the same name as the originals, with added filename extension ".stripped".<br>
 <br>
 <h4>Merge</h4><br>
 This pass merges the (in many cases redundant) information from the blocklists, so there are no double entries in the resulting final blocklist.<br>
@@ -70,7 +70,7 @@ The final mergefile only consists hosts/domain names and this needs to be blown 
 The way the resulting "unbound_include.txt" file gets blown up depends on your setting, default normal, or with -s option recursive, including subdomains.<br>
 This file then gets copied into /var/unbound, if you specified no other target.<br>
 <br>
-And now you can reload unbounds' configuration :)<br>
+<b>And now you can reload unbounds' configuration and enjoy a less annoying internet :)</b><br>
 
 
 
